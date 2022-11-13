@@ -1,12 +1,25 @@
-function describe(name, testFn) {
-  testFn();
-}
+let succeed = 0;
+let failed = 0;
 
-function it(name, testFn) {
-  testFn();
-}
+const countResult = (passed) => {
+  if (passed) succeed++;
+  if (!passed) failed++;
+};
 
-function expect(received) {
+const displayResult = () => {
+  console.log(`성공 ${succeed}개, 실패 ${failed}개`);
+};
+
+const describe = (name, testFn) => {
+  testFn();
+  displayResult();
+};
+
+const it = (name, testFn) => {
+  testFn();
+};
+
+const expect = (received) => {
   const isPrimitive = (value) =>
     (typeof value !== "object" && typeof value !== "function") ||
     value === null;
@@ -34,13 +47,17 @@ function expect(received) {
 
   return {
     toBe(expected) {
-      return received === expected;
+      const passed = received === expected;
+      countResult(passed);
+      return passed;
     },
     toEqual(expected) {
-      return deepEqual(received, expected);
+      const passed = deepEqual(received, expected);
+      countResult(passed);
+      return passed;
     },
   };
-}
+};
 
 module.exports = {
   describe,
