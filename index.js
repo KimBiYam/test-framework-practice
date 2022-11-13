@@ -5,6 +5,6 @@ const sum = (numbers) => numbers.reduce((acc, cur) => acc + cur, 0);
 describe("describe", () => {
   it("should", () => {
     expect(sum([1, 2, 3])).toBe(6);
-    expect({}).toEqual({});
+    expect([1, 2, 3]).toEqual([1, 2, 3]);
   });
 });
